@@ -1,0 +1,134 @@
+import Link from "next/link";
+import { Twitter, Linkedin, Github, Brain } from "lucide-react";
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {/* Brand Column */}
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <Brain className="w-6 h-6 text-emerald-400" />
+              <span className="text-xl font-bold">WealthWise</span>
+            </div>
+            <p className="text-gray-400 mb-4">
+              AI-powered personal finance tracker that helps you take control of
+              your financial future.
+            </p>
+          </div>
+
+          {/* Product Column */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Product</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Features
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#pricing"
+                  className="text-gray-400 hover:text-emerald-400"
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/dashboard"
+                  className="text-gray-400 hover:text-emerald-400"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Mobile App
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company Column */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Company</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Press
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support Column */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Support</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Help Center
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Security
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-400 hover:text-emerald-400">
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800">
+          <div className="text-gray-400 mb-4 md:mb-0">
+            © {currentYear} WealthWise. All rights reserved.
+          </div>
+
+          <div className="flex space-x-6">
+            <a href="#" className="text-gray-400 hover:text-emerald-400">
+              <span className="sr-only">Twitter</span>
+              <Twitter className="h-6 w-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-emerald-400">
+              <span className="sr-only">LinkedIn</span>
+              <Linkedin className="h-6 w-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-emerald-400">
+              <span className="sr-only">GitHub</span>
+              <Github className="h-6 w-6" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
