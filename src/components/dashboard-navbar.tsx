@@ -6,10 +6,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Button } from './ui/button'
-import { UserCircle, Home } from 'lucide-react'
+import { UserCircle, Settings, User, CreditCard, LogOut } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export default function DashboardNavbar() {
@@ -31,11 +32,25 @@ export default function DashboardNavbar() {
                 <UserCircle className="h-6 w-6" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
+                <User className="mr-2 h-4 w-4" />
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push('/dashboard/settings')}>
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push('/dashboard/billing')}>
+                <CreditCard className="mr-2 h-4 w-4" />
+                Billing & Subscription
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={async () => {
                 await supabase.auth.signOut()
                 router.push("/")
               }}>
+                <LogOut className="mr-2 h-4 w-4" />
                 Sign out
               </DropdownMenuItem>
             </DropdownMenuContent>
