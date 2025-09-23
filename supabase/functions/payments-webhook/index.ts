@@ -1,6 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import Stripe from "https://esm.sh/stripe@13.6.0?target=deno";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import Stripe from "stripe";
+import { createClient } from '@supabase/supabase-js';
 
 // Types
 type WebhookEvent = {
@@ -31,8 +31,8 @@ type SubscriptionData = {
   ended_at?: number;
 };
 
-const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
-  apiVersion: '2023-10-16',
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2025-02-24.acacia',
   httpClient: Stripe.createFetchHttpClient(),
 });
 
@@ -90,6 +90,12 @@ async function handleSubscriptionCreated(supabaseClient: any, event: any) {
   if (!userId) {
     try {
       const customer = await stripe.customers.retrieve(subscription.customer);
+      
+      // Type guard to check if customer is not deleted and has email
+      if (customer.deleted || !('email' in customer) || !customer.email) {
+        throw new Error('Customer is deleted or has no email');
+      }
+      
       const { data: userData } = await supabaseClient
         .from('users')
         .select('id')
@@ -325,10 +331,21 @@ async function handleCheckoutSessionCompleted(supabaseClient: any, event: any) {
     );
   } catch (error) {
     console.error('Error processing checkout completion:', error);
+    
+    // Type guard to safely access error properties
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorStack = error instanceof Error ? error.stack : undefined;
+    
     console.error('Error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
-    console.error('Error stack:', error.stack);
+    if (errorStack) {
+      console.error('Error stack:', errorStack);
+    }
+    
     return new Response(
-      JSON.stringify({ error: "Failed to process checkout completion", details: error.message }),
+      JSON.stringify({ 
+        error: "Failed to process checkout completion", 
+        details: errorMessage 
+      }),
       { 
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -466,7 +483,7 @@ serve(async (req) => {
     }
 
     const body = await req.text();
-    const webhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET');
+    const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
     
     if (!webhookSecret) {
       return new Response(
