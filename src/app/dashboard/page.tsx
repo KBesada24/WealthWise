@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import DashboardNavbar from "@/components/dashboard-navbar";
 import {
   Brain,
   TrendingUp,
@@ -75,10 +76,11 @@ export default function WealthWiseDashboard() {
   ];
 
   return (
-    <div className="bg-gray-50 p-6 w-[2252px] h-[2225px]">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gray-50">
+      <DashboardNavbar />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
               Welcome back, Sarah!
@@ -87,12 +89,12 @@ export default function WealthWiseDashboard() {
               Here's your financial overview for {currentMonth} {currentYear}
             </p>
           </div>
-          <div className="flex gap-3">
-            <Button variant="outline" size="sm">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add Transaction
             </Button>
-            <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700">
+            <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 w-full sm:w-auto">
               <CreditCard className="w-4 h-4 mr-2" />
               Connect Bank
             </Button>
@@ -100,7 +102,7 @@ export default function WealthWiseDashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -164,9 +166,9 @@ export default function WealthWiseDashboard() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           {/* Recent Transactions */}
-          <Card className="lg:col-span-2">
+          <Card className="xl:col-span-2">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
@@ -188,7 +190,7 @@ export default function WealthWiseDashboard() {
                 {transactions.map((transaction) => (
                   <div
                     key={transaction.id}
-                    className="flex items-center justify-between p-3 rounded-lg border"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 rounded-lg border gap-3"
                   >
                     <div className="flex items-center gap-3">
                       <div
@@ -205,7 +207,7 @@ export default function WealthWiseDashboard() {
                         )}
                       </div>
                       <div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                           <p className="font-medium">
                             {transaction.description}
                           </p>
@@ -289,7 +291,7 @@ export default function WealthWiseDashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
               {categories.map((category, index) => (
                 <div key={index} className="p-4 rounded-lg border">
                   <div className="flex items-center justify-between mb-2">

@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WealthWise",
-  description: "A modern full-stack starter template powered by Next.js",
+  description: "A modern financial SaaS application meant to revolutionize personal finance management.",
 };
 
 export default function RootLayout({
