@@ -20,6 +20,7 @@ import {
   ArrowUpRight,
   ArrowDownRight,
 } from "lucide-react";
+import PlaidLink from "@/components/ui/PlaidLink";
 
 export default function WealthWiseDashboard() {
   const currentDate = new Date();
@@ -95,7 +96,7 @@ export default function WealthWiseDashboard() {
               Add Transaction
             </Button>
             <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 w-full sm:w-auto">
-              <CreditCard className="w-4 h-4 mr-2" />
+              <PlaidLink user={user} variant="primary" />
               Connect Bank
             </Button>
           </div>
