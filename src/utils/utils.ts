@@ -14,3 +14,19 @@ export function encodedRedirect(
 ) {
   return redirect(`${path}?${type}=${encodeURIComponent(message)}`);
 }
+
+/**
+ * Parses and stringifies a value to create a deep clone and ensure serializability
+ * @param {any} value - The value to parse and stringify
+ * @returns {any} A deep cloned version of the value
+ */
+export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+
+/**
+ * Encrypts an ID by encoding it to base64
+ * @param {string} id - The ID to encrypt
+ * @returns {string} The encrypted ID
+ */
+export const encryptId = (id: string) => {
+  return Buffer.from(id).toString('base64');
+};
